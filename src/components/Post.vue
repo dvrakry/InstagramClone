@@ -1,14 +1,14 @@
 <template>
   <div class="post">
     <div class="post-header">
-      <div class="profile" :style="{backgroundImage : `url(${인스타데이터.userImage})`}"></div>
-      <span class="profile-name">{{인스타데이터.name}}</span>
+      <div class="profile" :style="{backgroundImage : `url(${게시물.userImage})`}"></div>
+      <span class="profile-name">{{게시물.name}}</span>
     </div>
-    <div class="post-body" :style="{backgroundImage : `url(${인스타데이터.postImage})`}"></div>
+    <div class="post-body" :style="{backgroundImage : `url(${게시물.postImage})`}"></div>
     <div class="post-content">
-      <p>{{인스타데이터.likes}}</p>
-      <p><strong>{{인스타데이터.id}}</strong> {{인스타데이터.content}}</p>
-      <p class="date">{{인스타데이터.date}}</p>
+      <p>{{게시물.likes}}</p>
+      <p><strong>{{게시물.id}}</strong> {{게시물.content}}</p>
+      <p class="date">{{게시물.date}}</p>
     </div>
 </div> 
 </template>
@@ -16,7 +16,7 @@
 <script>
 export default {
     props : {
-      인스타데이터 : Object,
+      게시물 : Object,
     }
 }
 </script>

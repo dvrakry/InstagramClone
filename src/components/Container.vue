@@ -1,6 +1,6 @@
 <template>
   <div>
-      <Post :인스타데이터="인스타데이터[i]" v-for="(a,i) in 인스타데이터" :key="i"/>
+      <Post :게시물="게시물[i]" v-for="(a,i) in 게시물" :key="i"/>
       <!-- <Post :인스타데이터="인스타데이터[1]"/>
       <Post :인스타데이터="인스타데이터[2]"/> -->
   </div>
@@ -15,7 +15,7 @@ export default {
         Post : Post,
     },
     props:{
-        인스타데이터 : Array,
+        게시물 : Array,
     },
 }
 </script>
