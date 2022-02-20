@@ -8,7 +8,7 @@
     <div class="post-content">
       <p>{{게시물.likes}} Likes </p>
       <p><strong>{{게시물.name}}</strong> {{게시물.content}}</p>
-      <p class="date">{{게시물.date}}</p>
+      <p class="date"> {{게시물.date}}</p>
     </div>
 </div> 
 </template>
