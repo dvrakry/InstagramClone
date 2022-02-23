@@ -4,12 +4,13 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step++">Next</li>
+      <li v-if="step == 2" @click="publish">finish</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :게시물 = "게시물" :step = "step" :이미지="이미지"/>
+  <Container :게시물 = "게시물" :step = "step" :이미지="이미지" @write="작성한글 = $event"/>
 
   <button @click="more">더보기</button>
 
@@ -30,7 +31,7 @@
 
 <script>
 import Container from  './components/Container.vue'; 
-import postdata from './assets/data.js';
+import postdata from './assets/postdata.js';
 import axios from 'axios';
 
 export default {
@@ -41,6 +42,7 @@ export default {
       더보기 : 0,
       step : 0,
       이미지 : '',
+      작성한글 : '',
     }
   },
   components: {
@@ -61,6 +63,21 @@ export default {
       console.log("유알엘:"+url);
       this.이미지 = url;
       this.step++;
+    },
+    publish(){
+      var 내게시물 = {
+        name: "Kim Hyun",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: this.이미지,
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: this.작성한글,
+        filter: "perpetua"
+      };
+
+      this.게시물.unshift(내게시물);
+      this.step = 0;
     }
   }
 };
