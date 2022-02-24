@@ -7,15 +7,15 @@
       <Post :인스타데이터="인스타데이터[2]"/> -->
 
     <!-- 필터선택페이지 -->
-    <div class="upload-image" v-if="step == 1" :style="`background-image : url(${이미지})`"></div>
+    <div :class="선택한필터" class="upload-image" v-if="step == 1" :style="`background-image : url(${이미지})`"></div>
     <div class="filters" v-if="step == 1">
-      <FilterBox :필터들="필터들[i]" :이미지 = "이미지" v-for="(a,i) in 필터들" :key="i">
-        {{a}}
+      <FilterBox :필터="필터" :이미지 = "이미지" v-for="필터 in 필터들" :key="필터">
+        {{필터}}
       </FilterBox>
     </div>
 
     <!-- 글작성페이지 -->
-    <div class="upload-image" v-if="step == 2" :style="`background-image : url(${이미지})`"></div>
+    <div :class="선택한필터" class="upload-image" v-if="step == 2" :style="`background-image : url(${이미지})`"></div>
     <div class="write" v-if="step == 2">
       <textarea @input="$emit('write', $event.target.value)" class="write-box">write!</textarea>
     </div>
@@ -27,6 +27,19 @@ import Post from "./Post.vue";
 import FilterBox from './FilterBox.vue';
 
 export default {
+   data(){
+    return{
+      필터들 : [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
+                "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
+                "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"],
+      선택한필터 : '',
+    }
+  },
+   mounted(){
+    this.emitter.on('박스클릭함', (a)=>{
+      this.선택한필터 = a
+    })
+  },
   components: {
     Post: Post,
     FilterBox : FilterBox,
@@ -36,13 +49,6 @@ export default {
     step : Number,
     이미지 : String,
   },
-  data(){
-    return{
-      필터들 : [ "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson", 
-                "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua", 
-                "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"],
-    }
-  }
 };
 </script>
 

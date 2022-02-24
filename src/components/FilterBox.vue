@@ -1,7 +1,8 @@
 <template>
-  <div :class="`${필터들} filter-item`" :style="`background-image : url(${이미지})`">
-      <!-- <slot></slot> -->
-      <span>{{필터들}}</span>
+  <div @click="fire" :class="`${필터} filter-item`" :style="`background-image : url(${이미지})`">
+      <slot></slot>
+      <!-- <span>{{필터}}</span> -->
+      <!-- <button @click="fire">버튼</button> -->
   </div>
 </template>
 
@@ -12,13 +13,18 @@ export default {
 
     props : {
         이미지 : String,
-        필터들 : Array,
+        필터 : String,
     },
     data(){
         return{
 
         }
     },
+    methods : {
+        fire(){
+            this.emitter.emit('박스클릭함', this.필터)
+        }
+    }
 };
 </script>
 

@@ -10,7 +10,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :게시물 = "게시물" :step = "step" :이미지="이미지" @write="작성한글 = $event"/>
+  <Container :게시물="게시물" :step="step" :이미지="이미지" @write="작성한글 = $event"/>
 
   <button @click="more">더보기</button>
 
@@ -30,41 +30,40 @@
 </template>
 
 <script>
-import Container from  './components/Container.vue'; 
-import postdata from './assets/postdata.js';
-import axios from 'axios';
+import Container from "./components/Container.vue";
+import postdata from "./assets/postdata.js";
+import axios from "axios";
 
 export default {
   name: "App",
-  data(){
-    return{
-      게시물 : postdata,
-      더보기 : 0,
-      step : 0,
-      이미지 : '',
-      작성한글 : '',
-    }
+  data() {
+    return {
+      게시물: postdata,
+      더보기: 0,
+      step: 0,
+      이미지: "",
+      작성한글: "",
+      선택한필터: "",
+    };
+  },
+  mounted() {
+    this.emitter.on("박스클릭함", (a) => {
+      this.선택한필터 = a;
+    });
   },
   components: {
-    Container : Container,
+    Container: Container,
   },
-  methods : {
-    more(){
-      axios.get(`https://codingapple1.github.io/vue/more${this.더보기}.json`)
-      .then((결과)=>{
-        this.게시물.push(결과.data);
-        this.더보기++;
-      })
-    },
-    upload(e){
+  methods: {
+    upload(e) {
       let 파일 = e.target.files;
       console.log(파일);
       let url = URL.createObjectURL(파일[0]);
-      console.log("유알엘:"+url);
+      console.log("유알엘:" + url);
       this.이미지 = url;
       this.step++;
     },
-    publish(){
+    publish() {
       var 내게시물 = {
         name: "Kim Hyun",
         userImage: "https://placeimg.com/100/100/arch",
@@ -73,13 +72,23 @@ export default {
         date: "May 15",
         liked: false,
         content: this.작성한글,
-        filter: "perpetua"
+        filter: this.선택한필터,
       };
 
       this.게시물.unshift(내게시물);
       this.step = 0;
-    }
-  }
+
+      console.log(내게시물);
+    },
+      more() {
+      axios
+        .get(`https://codingapple1.github.io/vue/more${this.더보기}.json`)
+        .then((결과) => {
+          this.게시물.push(결과.data);
+          this.더보기++;
+        });
+    },
+  },
 };
 </script>
 
