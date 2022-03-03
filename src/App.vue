@@ -14,6 +14,11 @@
   <!-- <h4>안녕 {{ $store.state.name }}</h4>
   <button @click="$store.state.name = 'Park'">버튼1</button> -->
 
+  <h4>안녕, 내 이름은 {{ $store.state.name }} 이고 </h4>
+  <p>나이는 {{ $store.state.age }} 야! </p>
+  <button @click="$store.commit('이름변경')">버튼</button>
+  <button @click="$store.commit('나이변경')">버튼2</button>
+
 
   <Container :게시물="게시물" :step="step" :이미지="이미지" @write="작성한글 = $event"/>
 
