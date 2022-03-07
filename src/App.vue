@@ -10,6 +10,8 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
+  <p>{{likes}}</p>
+
   <!-- Vuex 사용법 연습 -->
   <!-- <h4>안녕 {{ $store.state.name }}</h4>
   <button @click="$store.state.name = 'Park'">버튼1</button> -->
@@ -17,12 +19,15 @@
   <h4>안녕, 내 이름은 {{ $store.state.name }} 이고 </h4>
   <p>나이는 {{ $store.state.age }} 야! </p>
   <button @click="$store.commit('이름변경')">버튼</button>
-  <button @click="$store.commit('나이변경')">버튼2</button>
+  <button @click="$store.commit('나이변경', 10)">버튼2</button>
+
+  <p>{{$store.state.more}}</p>
 
 
   <Container :게시물="게시물" :step="step" :이미지="이미지" @write="작성한글 = $event"/>
 
-  <button @click="more">더보기</button>
+  <!-- <button @click="more">더보기</button> -->
+  <button @click="$store.dispatch('getData')">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -43,6 +48,7 @@
 import Container from "./components/Container.vue";
 import postdata from "./assets/postdata.js";
 import axios from "axios";
+import {mapState} from 'vuex'
 
 export default {
   name: "App",
@@ -64,7 +70,18 @@ export default {
   components: {
     Container: Container,
   },
+
+  computed: {
+    name(){
+      return this.$store.state.name
+    },
+    ...mapState(['name', 'age', 'likes']),
+  },
+
   methods: {
+    now(){
+      return new Date()
+    },
     upload(e) {
       let 파일 = e.target.files;
       console.log(파일);
